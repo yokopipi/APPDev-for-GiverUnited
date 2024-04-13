@@ -1,0 +1,360 @@
+{
+  "routes": [
+    {
+      "legs": [
+        {
+          "distanceMeters": 19482,
+          "duration": "1249s",
+          "staticDuration": "1249s",
+          "polyline": {
+            "encodedPolyline": "{yjzE_cssYCJUJp@`GLhANjAFn@X`C^`DBXD\\TdB^jDJn@BPDTFd@@`@Fb@BXBP?BXxABNHv@BZTzBX|@DHLP\\RVDD?`@MFCp@m@JMv@eAZ_@p@cAXk@Xs@^k@T_@DGRYn@o@NM@QX_@b@s@JQTs@D_@@SGq@GYGMIMMMGEKEKAMAS@]Lq@h@sAlA[X{@r@a@`@MJiB`BgCxB]Xw@l@i@^[Re@J{CjBkBbAYLcDtAiErAUH_AVQDg@LMB{@RyOfDoAXiFvAsDpAaDxAmDnBmBpAWP{D~CcExDyFbG}EjFMLwE`F_GzFkB`Bm@h@sExDmA`AcGlE_FdDyEvCsAv@qEdCu@`@yG`DaCfAoBx@kHpCuGxB{GnBkD|@_@Hs@PaHxAsAVwCf@KB}Dj@wEj@WD}@HuBRWBsBPkAJI?M@kCNu@DaFLoBD]?kB@mC?c@AiBC{DIkCK[AwBMwCSuCWyDc@eCWcCa@[EqFgAoBk@wBa@m@OoCu@g@Mc@M_H}BcDmAoEiB}CuAyFyC[SeJqF_@WSKsDcCuGgE{EsCgCqAWO{BcAgFmB[KmCu@yBi@SEc@KwCg@eFk@cEWcFKeB@S?w@@_ENgE\\yC`@_@Fc@H}Dx@iDz@g@Nk@PsFfBsFpB_@Pg@RsD~AcCjAsDlByDxBWN}E|CYRmAz@g@^u@h@_Ap@YTmEpD}G~FURkAbAURqAfAsFjEuDlC}@j@wFlDC@WN_FlCaFdCcGfC[NYLMD{DvA_AXsAb@uEtA[Hi@NcB`@yBh@mB`@YFoARu@N]FkDl@]Hq@JqAT{@Nu@N}@No@L}@NaAP[H_@HaATe@NwAXiCl@kAZ}Cz@w@PcCp@{Ah@g@Nm@RgA\\WVmFzBgAf@k@Xu@`@k@f@a@p@Sv@[zBCJM^_@d@]Rc@Ha@Ca@Ma@a@MUCGUy@GUK_AEk@C[?YAeACqCAa@Uu@G[A_B?k@Dq@BqACq@Q_CSwASo@S]QQQMe@QAGy@I}@Kc@GkBUiAOuAUMAYEo@GMAQA_BSmDc@SCa@G_@GmAOi@E}@KCAyAUcBc@iA_@mA_@e@Sm@Yk@WUKQMOG_@We@YMIHOFMFO@C`@aAj@wA`@gARg@b@gAPc@`@cARi@t@kBBIx@uBTm@`AcCL]N]d@mAt@mB`@gAl@{AHObA}Bf@iA`@_Av@eBBGjAiClBmEdA{BDI@AxAaBq@y@OS}AsB"
+          },
+          "startLocation": {
+            "latLng": {
+              "latitude": 35.9415791,
+              "longitude": 139.6947214
+            }
+          },
+          "endLocation": {
+            "latLng": {
+              "latitude": 36.0652707,
+              "longitude": 139.6738911
+            }
+          },
+          "steps": [
+            {
+              "distanceMeters": 20,
+              "staticDuration": "5s",
+              "polyline": {
+                "encodedPolyline": "{yjzE_cssYCJUJ"
+              },
+              "startLocation": {
+                "latLng": {
+                  "latitude": 35.9415791,
+                  "longitude": 139.6947214
+                }
+              },
+              "endLocation": {
+                "latLng": {
+                  "latitude": 35.941713199999995,
+                  "longitude": 139.6946049
+                }
+              },
+              "navigationInstruction": {
+                "maneuver": "DEPART",
+                "instructions": "北西に進んで国道16号に向かう"
+              },
+              "localizedValues": {
+                "distance": {
+                  "text": "20 m"
+                },
+                "staticDuration": {
+                  "text": "1分"
+                }
+              },
+              "travelMode": "DRIVE"
+            },
+            {
+              "distanceMeters": 759,
+              "staticDuration": "154s",
+              "polyline": {
+                "encodedPolyline": "uzjzEgbssYp@`GLhANjAFn@X`C^`DBXD\\TdB^jDJn@BPDTFd@@`@Fb@BXBP?BXxABNHv@BZTzB"
+              },
+              "startLocation": {
+                "latLng": {
+                  "latitude": 35.941713199999995,
+                  "longitude": 139.6946049
+                }
+              },
+              "endLocation": {
+                "latLng": {
+                  "latitude": 35.9400921,
+                  "longitude": 139.68641879999998
+                }
+              },
+              "navigationInstruction": {
+                "maneuver": "TURN_LEFT",
+                "instructions": "左折して国道16号に入る"
+              },
+              "localizedValues": {
+                "distance": {
+                  "text": "0.8 km"
+                },
+                "staticDuration": {
+                  "text": "3分"
+                }
+              },
+              "travelMode": "DRIVE"
+            },
+            {
+              "distanceMeters": 424,
+              "staticDuration": "41s",
+              "polyline": {
+                "encodedPolyline": "qpjzEcoqsYX|@DHLP\\RVDD?`@MFCp@m@JMv@eAZ_@p@cAXk@Xs@^k@T_@DGRYn@o@NM"
+              },
+              "startLocation": {
+                "latLng": {
+                  "latitude": 35.9400921,
+                  "longitude": 139.68641879999998
+                }
+              },
+              "endLocation": {
+                "latLng": {
+                  "latitude": 35.937393799999995,
+                  "longitude": 139.68842329999998
+                }
+              },
+              "navigationInstruction": {
+                "maneuver": "RAMP_LEFT",
+                "instructions": "東北自動車道 のランプに進む\n有料区間"
+              },
+              "localizedValues": {
+                "distance": {
+                  "text": "0.4 km"
+                },
+                "staticDuration": {
+                  "text": "1分"
+                }
+              },
+              "travelMode": "DRIVE"
+            },
+            {
+              "distanceMeters": 715,
+              "staticDuration": "48s",
+              "polyline": {
+                "encodedPolyline": "u_jzEs{qsY@QX_@b@s@JQTs@D_@@SGq@GYGMIMMMGEKEKAMAS@]Lq@h@sAlA[X{@r@a@`@MJiB`BgCxB]Xw@l@i@^[Re@J"
+              },
+              "startLocation": {
+                "latLng": {
+                  "latitude": 35.937393799999995,
+                  "longitude": 139.68842329999998
+                }
+              },
+              "endLocation": {
+                "latLng": {
+                  "latitude": 35.9411063,
+                  "longitude": 139.6871342
+                }
+              },
+              "navigationInstruction": {
+                "maneuver": "RAMP_LEFT",
+                "instructions": "斜め左方向に曲がり 宇都宮 方面のランプに入る\n有料区間"
+              },
+              "localizedValues": {
+                "distance": {
+                  "text": "0.7 km"
+                },
+                "staticDuration": {
+                  "text": "1分"
+                }
+              },
+              "travelMode": "DRIVE"
+            },
+            {
+              "distanceMeters": 14024,
+              "staticDuration": "582s",
+              "polyline": {
+                "encodedPolyline": "}vjzEqsqsY{CjBkBbAYLcDtAiErAUH_AVQDg@LMB{@RyOfDoAXiFvAsDpAaDxAmDnBmBpAWP{D~CcExDyFbG}EjFMLwE`F_GzFkB`Bm@h@sExDmA`AcGlE_FdDyEvCsAv@qEdCu@`@yG`DaCfAoBx@kHpCuGxB{GnBkD|@_@Hs@PaHxAsAVwCf@KB}Dj@wEj@WD}@HuBRWBsBPkAJI?M@kCNu@DaFLoBD]?kB@mC?c@AiBC{DIkCK[AwBMwCSuCWyDc@eCWcCa@[EqFgAoBk@wBa@m@OoCu@g@Mc@M_H}BcDmAoEiB}CuAyFyC[SeJqF_@WSKsDcCuGgE{EsCgCqAWO{BcAgFmB[KmCu@yBi@SEc@KwCg@eFk@cEWcFKeB@S?w@@_ENgE\\yC`@_@Fc@H}Dx@iDz@g@Nk@PsFfBsFpB_@Pg@RsD~AcCjAsDlByDxBWN}E|CYRmAz@g@^u@h@_Ap@YTmEpD}G~FURkAbAURqAfAsFjEuDlC}@j@wFlDC@WN_FlCaFdCcGfC[NYLMD{DvA_AXsAb@uEtA[Hi@NcB`@yBh@mB`@YFoARu@N]FkDl@]Hq@JqAT{@Nu@N}@No@L}@NaAP[H_@HaATe@NwAXiCl@kAZ}Cz@w@PcCp@{Ah@g@Nm@RgA\\"
+              },
+              "startLocation": {
+                "latLng": {
+                  "latitude": 35.9411063,
+                  "longitude": 139.6871342
+                }
+              },
+              "endLocation": {
+                "latLng": {
+                  "latitude": 36.057023799999996,
+                  "longitude": 139.6552367
+                }
+              },
+              "navigationInstruction": {
+                "maneuver": "MERGE",
+                "instructions": "東北縦貫自動車道/東北自動車道 に入る\n有料区間"
+              },
+              "localizedValues": {
+                "distance": {
+                  "text": "14.0 km"
+                },
+                "staticDuration": {
+                  "text": "10分"
+                }
+              },
+              "travelMode": "DRIVE"
+            },
+            {
+              "distanceMeters": 1047,
+              "staticDuration": "78s",
+              "polyline": {
+                "encodedPolyline": "kka{EglksYWVmFzBgAf@k@Xu@`@k@f@a@p@Sv@[zBCJM^_@d@]Rc@Ha@Ca@Ma@a@MUCGUy@GUK_AEk@C[?YAeACqCAa@Uu@G[A_B?k@Dq@BqACq@Q_C"
+              },
+              "startLocation": {
+                "latLng": {
+                  "latitude": 36.057023799999996,
+                  "longitude": 139.6552367
+                }
+              },
+              "endLocation": {
+                "latLng": {
+                  "latitude": 36.0615051,
+                  "longitude": 139.65761849999998
+                }
+              },
+              "navigationInstruction": {
+                "maneuver": "RAMP_LEFT",
+                "instructions": "久喜IC 出口を 久喜/栗橋 方面に向かって進む\n有料区間"
+              },
+              "localizedValues": {
+                "distance": {
+                  "text": "1.0 km"
+                },
+                "staticDuration": {
+                  "text": "1分"
+                }
+              },
+              "travelMode": "DRIVE"
+            },
+            {
+              "distanceMeters": 1112,
+              "staticDuration": "150s",
+              "polyline": {
+                "encodedPolyline": "mgb{Ec{ksYSwASo@S]QQQMe@QAGy@I}@Kc@GkBUiAOuAUMAYEo@GMAQA_BSmDc@SCa@G_@GmAOi@E}@KCAyAUcBc@iA_@mA_@e@Sm@Yk@WUKQMOG_@We@YMI"
+              },
+              "startLocation": {
+                "latLng": {
+                  "latitude": 36.0615051,
+                  "longitude": 139.65761849999998
+                }
+              },
+              "endLocation": {
+                "latLng": {
+                  "latitude": 36.0706673,
+                  "longitude": 139.66127939999998
+                }
+              },
+              "localizedValues": {
+                "distance": {
+                  "text": "1.1 km"
+                },
+                "staticDuration": {
+                  "text": "3分"
+                }
+              },
+              "travelMode": "DRIVE"
+            },
+            {
+              "distanceMeters": 1256,
+              "staticDuration": "167s",
+              "polyline": {
+                "encodedPolyline": "u`d{E_rlsYHOFMFO@C`@aAj@wA`@gARg@b@gAPc@`@cARi@t@kBBIx@uBTm@`AcCL]N]d@mAt@mB`@gAl@{AHObA}Bf@iA`@_Av@eBBGjAiClBmEdA{BDI@AxAaB"
+              },
+              "startLocation": {
+                "latLng": {
+                  "latitude": 36.0706673,
+                  "longitude": 139.66127939999998
+                }
+              },
+              "endLocation": {
+                "latLng": {
+                  "latitude": 36.064472099999996,
+                  "longitude": 139.67291889999998
+                }
+              },
+              "navigationInstruction": {
+                "maneuver": "TURN_RIGHT",
+                "instructions": "右折して六間通りに入る"
+              },
+              "localizedValues": {
+                "distance": {
+                  "text": "1.3 km"
+                },
+                "staticDuration": {
+                  "text": "3分"
+                }
+              },
+              "travelMode": "DRIVE"
+            },
+            {
+              "distanceMeters": 125,
+              "staticDuration": "24s",
+              "polyline": {
+                "encodedPolyline": "}yb{EwznsYq@y@OS}AsB"
+              },
+              "startLocation": {
+                "latLng": {
+                  "latitude": 36.064472099999996,
+                  "longitude": 139.67291889999998
+                }
+              },
+              "endLocation": {
+                "latLng": {
+                  "latitude": 36.0652707,
+                  "longitude": 139.6738911
+                }
+              },
+              "navigationInstruction": {
+                "maneuver": "TURN_LEFT",
+                "instructions": "左折して愛宕通りに入る\n目的地は前方左側です"
+              },
+              "localizedValues": {
+                "distance": {
+                  "text": "0.1 km"
+                },
+                "staticDuration": {
+                  "text": "1分"
+                }
+              },
+              "travelMode": "DRIVE"
+            }
+          ],
+          "localizedValues": {
+            "distance": {
+              "text": "19.5 km"
+            },
+            "duration": {
+              "text": "21分"
+            },
+            "staticDuration": {
+              "text": "21分"
+            }
+          }
+        }
+      ],
+      "distanceMeters": 19482,
+      "duration": "1248s",
+      "staticDuration": "1248s",
+      "polyline": {
+        "encodedPolyline": "{yjzE_cssYCJUJp@`GLhANjAFn@X`C^`DBXD\\TdB^jDJn@BPDTFd@@`@Fb@BXBP?BXxABNHv@BZTzBX|@DHLP\\RVDD?`@MFCp@m@JMv@eAZ_@p@cAXk@Xs@^k@T_@DGRYn@o@NM@QX_@b@s@JQTs@D_@@SGq@GYGMIMMMGEKEKAMAS@]Lq@h@sAlA[X{@r@a@`@MJiB`BgCxB]Xw@l@i@^[Re@J{CjBkBbAYLcDtAiErAUH_AVQDg@LMB{@RyOfDoAXiFvAsDpAaDxAmDnBmBpAWP{D~CcExDyFbG}EjFMLwE`F_GzFkB`Bm@h@sExDmA`AcGlE_FdDyEvCsAv@qEdCu@`@yG`DaCfAoBx@kHpCuGxB{GnBkD|@_@Hs@PaHxAsAVwCf@KB}Dj@wEj@WD}@HuBRWBsBPkAJI?M@kCNu@DaFLoBD]?kB@mC?c@AiBC{DIkCK[AwBMwCSuCWyDc@eCWcCa@[EqFgAoBk@wBa@m@OoCu@g@Mc@M_H}BcDmAoEiB}CuAyFyC[SeJqF_@WSKsDcCuGgE{EsCgCqAWO{BcAgFmB[KmCu@yBi@SEc@KwCg@eFk@cEWcFKeB@S?w@@_ENgE\\yC`@_@Fc@H}Dx@iDz@g@Nk@PsFfBsFpB_@Pg@RsD~AcCjAsDlByDxBWN}E|CYRmAz@g@^u@h@_Ap@YTmEpD}G~FURkAbAURqAfAsFjEuDlC}@j@wFlDC@WN_FlCaFdCcGfC[NYLMD{DvA_AXsAb@uEtA[Hi@NcB`@yBh@mB`@YFoARu@N]FkDl@]Hq@JqAT{@Nu@N}@No@L}@NaAP[H_@HaATe@NwAXiCl@kAZ}Cz@w@PcCp@{Ah@g@Nm@RgA\\WVmFzBgAf@k@Xu@`@k@f@a@p@Sv@[zBCJM^_@d@]Rc@Ha@Ca@Ma@a@MUCGUy@GUK_AEk@C[?YAeACqCAa@Uu@G[A_B?k@Dq@BqACq@Q_CSwASo@S]QQQMe@QAGy@I}@Kc@GkBUiAOuAUMAYEo@GMAQA_BSmDc@SCa@G_@GmAOi@E}@KCAyAUcBc@iA_@mA_@e@Sm@Yk@WUKQMOG_@We@YMIHOFMFO@C`@aAj@wA`@gARg@b@gAPc@`@cARi@t@kBBIx@uBTm@`AcCL]N]d@mAt@mB`@gAl@{AHObA}Bf@iA`@_Av@eBBGjAiClBmEdA{BDI@AxAaBq@y@OS}AsB"
+      },
+      "description": "東北縦貫自動車道/東北自動車道",
+      "warnings": [
+        "このルートには有料区間が含まれます。",
+        "高速道路を使うルートです。"
+      ],
+      "viewport": {
+        "low": {
+          "latitude": 35.936864199999995,
+          "longitude": 139.6520926
+        },
+        "high": {
+          "latitude": 36.0706673,
+          "longitude": 139.6947214
+        }
+      },
+      "localizedValues": {
+        "distance": {
+          "text": "19.5 km"
+        },
+        "duration": {
+          "text": "21分"
+        },
+        "staticDuration": {
+          "text": "21分"
+        }
+      },
+      "routeLabels": [
+        "DEFAULT_ROUTE"
+      ]
+    }
+  ]
+}
