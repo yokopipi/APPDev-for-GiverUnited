@@ -3,6 +3,7 @@ import golfcourse_search
 import route_search
 import highway_toll
 import cost_calculation
+import route_display
 
 import streamlit as st
 import pandas as pd
@@ -138,3 +139,10 @@ cnt_people = 3
 
 total_cost,per_cost = cost_calculation(highway_toll_List,price_per_liter, fuel_efficiency,cnt_people)
 #コスト計算--------------------------
+
+
+#ルート表示--------------------------
+###ルート検索（route_search）で取得した経由情報（詳細）から地図上にルートを表示する
+route_display(routes_details)
+
+#ルート表示--------------------------
