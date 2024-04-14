@@ -1,4 +1,5 @@
 # サブモジュールをインポートする
+import create_iclist
 import golfcourse_search
 import route_search
 import highway_toll
@@ -80,6 +81,11 @@ with tab1:
 with tab2:
     st.write("メンバー登録？")
 
+#ICリストの取得--------------------------
+##関数：IC一覧作成（create_iclist）をコールして、IC一覧をデータフレームに格納する。
+
+ic_list_df = create_iclist()
+#ICリストの取得--------------------------
 
 #ゴルフ場検索--------------------------
 ###関数：ゴルフ場検索（golfcourse_search）をコールし、検索結果のゴルフ場一覧をデータフレームに格納する。
@@ -111,6 +117,7 @@ second_person_address = '東京都日野市大坂上４丁目１−１'
 third_person_address = '千葉県柏市柏１丁目１−１'
 destination = '茨城県取手市稲１３４０'
 estimated_arrival_time = '7:00'
+ic_list_df = 
 
 routes_overview,routes_details = route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,estimated_arrival_time)
 #ルート検索--------------------------
