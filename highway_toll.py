@@ -6,12 +6,12 @@
 
 
 #【パラメータ】
-# ・高速乗降リスト：リストのリスト
+# ・ルートサマリ情報：リストのリスト ※リストの内容については、route_search.py参照
 #【返り値】
 # ・高速乗降リスト（金額付）：リストのリスト
 #############
 
-def highway_toll(highway_List):
+def highway_toll(routes_details):
 
     highway_toll_List =  [['都筑','港北',1000],['用賀','渋谷',500],['渋谷','柏',2000]]
 

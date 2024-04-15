@@ -22,10 +22,10 @@ def route_search(starting_point,first_person_address,second_person_address,third
     #経由情報（詳細） ※経由地はwaypointを1にする。有料区間は'tollsection'を1にする
     routes_details = [
         {'latitude': 35.6895, 'longitude': 139.6917, 'waypoint':0,'tollsection':0},
-        {'latitude': 34.0522, 'longitude': -118.2437, 'waypoint':'tollsection':1},
-        {'latitude': 51.5074, 'longitude': -0.1278, 'waypoint':1}
+        {'latitude': 34.0522, 'longitude': -118.2437, 'waypoint':0,'tollsection':1},
+        {'latitude': 51.5074, 'longitude': -0.1278, 'waypoint':1,'tollsection':1}
     ]
-
+    
     #経由情報（概要）
     routes_overview =[
         #Start⇒1人目の情報　※1人目が存在しない場合は、全てNULLにする
@@ -33,8 +33,8 @@ def route_search(starting_point,first_person_address,second_person_address,third
             'time':'1:00', 
             'distance':5.5,
             'highway':[
-                ['都筑','港北'],
-                ['用賀','渋谷'],
+                [['35.516139','139.591444'],['35.516139','139.591444']],
+                [['35.627389','139.625778'],['35.647651','139.679167']],
             ]
         },
         #1人目⇒2人目の情報　※2人目が存在しない場合は、全てNULLにする
@@ -48,7 +48,7 @@ def route_search(starting_point,first_person_address,second_person_address,third
             'time':'0:45', 
             'distance':100,
             'highway':[
-                ['渋谷','柏']
+                [['35.647651','139.679167'],["柏",'35.908708','139.934653']]
             ]
         },
         #3人目⇒到着地の情報　※到着値が入力されていないときは、全てNULLにする

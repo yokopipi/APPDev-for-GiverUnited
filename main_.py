@@ -125,9 +125,8 @@ routes_overview,routes_details = route_search(starting_point,first_person_addres
 
 #高速料金計算--------------------------
 ###関数：高速料金計算（highway_toll）をコールし、高速料金を計算する
-highway_List = [['都筑','港北'],['用賀','渋谷'],['渋谷','柏']]
 
-highway_toll_List = highway_toll(highway_List)
+highway_toll_List = highway_toll(routes_details)
 #高速料金計算--------------------------
 
 
