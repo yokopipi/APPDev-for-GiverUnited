@@ -118,7 +118,7 @@ third_person_address = '千葉県柏市柏１丁目１−１'
 destination = '茨城県取手市稲１３４０'
 estimated_arrival_time = '7:00'
 
-routes_overview,routes_details = route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,estimated_arrival_time,ic_list_df)
+routes_overview,routes_details = route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,estimated_arrival_time)
 #ルート検索--------------------------
 
 
@@ -126,7 +126,7 @@ routes_overview,routes_details = route_search(starting_point,first_person_addres
 #高速料金計算--------------------------
 ###関数：高速料金計算（highway_toll）をコールし、高速料金を計算する
 
-highway_toll_List = highway_toll(routes_details)
+highway_toll_List = highway_toll(routes_overview,ic_list_df)
 #高速料金計算--------------------------
 
 
