@@ -93,7 +93,7 @@ ic_list_df = create_iclist()
 #エリア
 area = ['東京都','千葉県']
 #プレイ日
-play_date = 2024/4/20
+play_date = '2024/4/20'
 #最低金額
 min_fee = 8000
 #最高金額
@@ -118,7 +118,7 @@ third_person_address = '千葉県柏市柏１丁目１−１'
 destination = '茨城県取手市稲１３４０'
 estimated_arrival_time = '7:00'
 
-routes_overview,routes_details = route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,estimated_arrival_time)
+routes_overview,routes_details = route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,play_date,estimated_arrival_time)
 #ルート検索--------------------------
 
 
@@ -142,7 +142,7 @@ fuel_efficiency = 23
 #人数
 cnt_people = 3
 
-total_cost,per_cost = cost_calculation(highway_toll_List,price_per_liter, fuel_efficiency,cnt_people)
+total_cost,per_cost,total_highway_cost,fuel_cost,total_time,total_distance = cost_calculation(highway_toll_List,price_per_liter, fuel_efficiency,cnt_people,routes_overview)
 #コスト計算--------------------------
 
 

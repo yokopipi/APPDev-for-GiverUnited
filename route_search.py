@@ -10,20 +10,26 @@
 # ・２人目住所：文字列
 # ・３人目住所：文字列
 # ・目的地：文字列
+# ・プレイ日：文字列
 # ・到着予定時刻：文字列
 #【返り値】
 # ・経由情報（概要）：辞書のリスト  
 # ・経由情報（詳細）：辞書のリスト
 #############
 
-def route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,estimated_arrival_time):
+def route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,play_date,estimated_arrival_time):
 
     #経由情報（詳細） ※経由地はwaypointを1にする。有料区間は'tollsection'を1にする
     routes_details = [
-        {'latitude': 35.6895, 'longitude': 139.6917, 'waypoint':0,'tollsection':0},
+        {'latitude': 35.6895, 'longitude': 139.6917, 'waypoint':1,'tollsection':0},
         {'latitude': 34.0522, 'longitude': -118.2437, 'waypoint':0,'tollsection':1},
-        {'latitude': 51.5074, 'longitude': -0.1278, 'waypoint':1,'tollsection':1}
-    ]
+        {'latitude': 34.0522, 'longitude': -118.2437, 'waypoint':0,'tollsection':1},
+        {'latitude': 34.0522, 'longitude': -118.2437, 'waypoint':0,'tollsection':1},
+        {'latitude': 51.5074, 'longitude': -0.1278, 'waypoint':1,'tollsection':0},
+        {'latitude': 34.0522, 'longitude': -118.2437, 'waypoint':0,'tollsection':1},
+        {'latitude': 34.0522, 'longitude': -118.2437, 'waypoint':0,'tollsection':1},
+        {'latitude': 34.0522, 'longitude': -118.2437, 'waypoint':1,'tollsection':0},
+     ]
     
     #経由情報（概要）
     routes_overview =[
