@@ -74,29 +74,44 @@ with st.sidebar:
 # タイトルとデータを表示
 if 'golfcourse_df' in st.session_state:
     st.write("### ゴルフコース一覧:")  # タイトル行
-    for i,row in st.session_state.golfcourse_df.iterrows():
+
+
+    # ページネーションを設定
+    page_size = 5
+    total_pages = (len(st.session_state.golfcourse_df) + page_size - 1) // page_size
+    page_number = st.number_input('ページ番号', min_value=1, max_value=total_pages, value=1, step=1) - 1
+    start_index = page_number * page_size
+    end_index = min(start_index + page_size, len(st.session_state.golfcourse_df))
+    displayed_df = st.session_state.golfcourse_df.iloc[start_index:end_index]
+
+    # タイトル行の常時表示
+    title_row = st.session_state.golfcourse_df.iloc[0]
+    title_cols = st.columns([2, 0.5, 0.5, 0.5, 2, 1, 0.5])
+    title_cols[0].write('**ゴルフ場名**')
+    title_cols[1].write('**最低価格**')
+    title_cols[2].write('**最高価格**')
+    title_cols[3].write('**評価**')
+    title_cols[4].write('**住所**')
+    title_cols[5].write('**高速からの距離**')
+
+    for i, row in displayed_df.iterrows():
+        index = start_index + i  # 元のデータフレームでのインデックス位置
         cols = st.columns([2, 0.5, 0.5, 0.5, 2, 1, 0.5])
+        cols[0].markdown(f"**[{row['golf_course_name']}]({row['url']})**", unsafe_allow_html=True)
         cols[1].write(row['min_price'])
         cols[2].write(row['max_price'])
         cols[3].write(row['rating'])
         cols[4].write(row['address'])
         cols[5].write(row['distance_from_highway'])
-        if i == 0:  # 最初の行はタイトル行    
-            cols[0].write(row['golf_course_name'])   
-        else:
-            # Markdownを使ってゴルフコース名をハイパーリンクとして表示
-            link = f"[{row['golf_course_name']}]({row['url']})"
-            cols[0].markdown(link, unsafe_allow_html=True)    
-            # ボタンの配置
-            if cols[6].button("選択", key=f"select_{i}"):
-                st.session_state.selected_address = row['address']
-                st.session_state.selected_golf_course_name = row['golf_course_name']
+        if cols[6].button("選択", key=f"select_{index}"):  # キーにインデックスを追加
+            st.session_state.selected_address = row['address']
+            st.session_state.selected_golf_course_name = row['golf_course_name']
     
 
     if 'selected_address' in st.session_state:
         destination = st.session_state.selected_address
         st.write("")
-        st.markdown(f"##### **選択ゴルフコース　:　{st.session_state.selected_golf_course_name}**")
+        st.markdown(f"##### 選択ゴルフコース　:　{st.session_state.selected_golf_course_name}")
         st.write("--------")
 
         ###関数：ルート検索（route_search）をコールし、ルート情報（概要）とルート情報（詳細）を格納する
