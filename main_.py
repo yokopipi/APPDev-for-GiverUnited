@@ -1,10 +1,10 @@
 # サブモジュールをインポートする
-import create_iclist
-import golfcourse_search
-import route_search
-import highway_toll
-import cost_calculation
-import route_display
+import create_iclist_
+import golfcourse_search_
+import route_search_
+import highway_toll_
+import cost_calculation_
+import route_display_
 
 import streamlit as st
 import pandas as pd
