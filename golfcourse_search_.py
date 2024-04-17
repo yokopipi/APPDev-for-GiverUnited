@@ -31,5 +31,7 @@ def golfcourse_search(area,play_date,min_fee,max_fee,start_times):
 
     # サンプルデータをデータフレームに追加
     df = pd.DataFrame(sample_data, columns=columns)
+    # タイトル行を追加
+    df = pd.concat([pd.DataFrame([["**ゴルフコース名**", "**最低価格**", "**最高価格**", "**評価**", "**住所**", "**高速からの距離**", "**選択**"]], columns=df.columns), df], ignore_index=True)
 
     return df
