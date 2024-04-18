@@ -22,6 +22,13 @@ set_area_list = {
     "埼玉県":2
 }
 
+set_friend_list = {
+    "ダル君":1,
+    "山本君":2,
+    "大谷さん":3,
+    "鈴木センパイ":4
+}
+
 set_starttime_list = {
     "~5時台":1,
     "6時台":2,
@@ -59,10 +66,13 @@ with st.sidebar:
     else:
         st.text_input("ゴルフ場名")
     st.markdown("**【ピックアップ情報】**")
-    starting_point = st.selectbox("出発地", set_address_list.keys())
-    first_person_address = st.selectbox("1人目", set_address_list.keys())
-    second_person_address = st.selectbox("2人目", set_address_list.keys())
-    third_person_address = st.selectbox("3人目", set_address_list.keys())
+    starting_point = st.text_input("出発地")
+    st.selectbox("1人目", set_friend_list.keys())
+    first_person_address = st.text_input("1人目住所")
+    st.selectbox("2人目", set_friend_list.keys())
+    second_person_address = st.text_input("2人目住所")
+    st.selectbox("3人目", set_friend_list.keys())
+    third_person_address = st.text_input("3人目住所")
     estimated_arrival_time = st.time_input("到着予定時間")
 
     st.markdown("**【交通費情報】**")
@@ -70,11 +80,10 @@ with st.sidebar:
     fuel_efficiency = st.text_input("ガソリン代[円]",169)
     cnt_people = 3
 
+
 # メイン表示
-# タイトルとデータを表示
 if 'golfcourse_df' in st.session_state:
     st.write("### ゴルフコース一覧:")  # タイトル行
-
 
     # ページネーションを設定
     page_size = 5
