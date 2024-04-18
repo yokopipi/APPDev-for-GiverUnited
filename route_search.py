@@ -15,6 +15,8 @@
 #【返り値】
 # ・経由情報（概要）：辞書のリスト  
 # ・経由情報（詳細）：辞書のリスト
+# ・総時間：文字列
+# ・総距離：数字
 #############
 import requests
 import json
@@ -283,4 +285,7 @@ def route_search(starting_point,first_person_address,second_person_address,third
         }
         ]
 
-    return routes_overview,routes_details
+    total_time = '3:00'
+    total_distance = '120'
+
+    return routes_overview,routes_details,total_time,total_distance

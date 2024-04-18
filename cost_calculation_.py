@@ -9,22 +9,18 @@
 # ・ガソリン代（1Lあたり）：数字
 # ・燃費（L/KM）：数字
 # ・人数：数字
-# ・経由情報（概要）：辞書のリスト  
 #【返り値】
 # ・総コスト：数字
 # ・一人あたりのコスト：数字 
 # ・高速金額：数字 
 # ・ガソリン代：数字 
-# ・総時間：文字列
-# ・総距離：数字
+
 #############
 
-def cost_calculation(highway_toll_List,price_per_liter, fuel_efficiency,cnt_people,routes_overview):
+def cost_calculation(highway_toll_List,price_per_liter, fuel_efficiency,cnt_people):
     total_cost = 4000
     per_cost = 1333
     total_highway_cost = 2000
     fuel_cost = 2000
-    total_time = '2:00'
-    total_distance = 120
 
-    return total_cost,per_cost,total_highway_cost,fuel_cost,total_time,total_distance
+    return total_cost,per_cost,total_highway_cost,fuel_cost

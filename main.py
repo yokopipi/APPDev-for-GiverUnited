@@ -1,8 +1,8 @@
 # サブモジュールをインポートする
-from create_iclist_ import create_iclist
+from create_iclist import create_iclist
 from golfcourse_search_ import golfcourse_search
-from route_search_ import route_search
-from highway_toll_ import highway_toll
+from route_search import route_search
+from highway_toll import highway_toll
 from cost_calculation_ import cost_calculation
 from route_display_ import route_display
 
@@ -51,7 +51,7 @@ with st.sidebar:
     area = st.selectbox("エリア", set_area_list.keys())
     # 今日の日付をデフォルト値として設定
     today = datetime.date.today()  # 今日の日付を取得
-    play_date = st.date_input("プレー日", today)  # デフォルト値として今日の日付を使用
+    play_date = str(st.date_input("プレー日", today))  # デフォルト値として今日の日付を使用
     min_fee = st.number_input("最低金額", value=8000,step=1000)
     max_fee = st.number_input("最高金額", value=12000,step=1000)
     start_times = st.selectbox("スタート時間", set_starttime_list.keys())
@@ -66,20 +66,19 @@ with st.sidebar:
     else:
         st.text_input("ゴルフ場名")
     st.markdown("**【ピックアップ情報】**")
-    starting_point = st.text_input("出発地")
+    starting_point = st.text_input("出発地",'神奈川県横浜市都筑区新栄町15-1')
     st.selectbox("1人目", set_friend_list.keys())
-    first_person_address = st.text_input("1人目住所")
+    first_person_address = st.text_input("1人目住所",'東京都渋谷区道玄坂２丁目２９−１')
     st.selectbox("2人目", set_friend_list.keys())
-    second_person_address = st.text_input("2人目住所")
+    second_person_address = st.text_input("2人目住所",'東京都日野市大坂上４丁目１−１')
     st.selectbox("3人目", set_friend_list.keys())
-    third_person_address = st.text_input("3人目住所")
+    third_person_address = st.text_input("3人目住所",'千葉県柏市柏１丁目１−１')
     estimated_arrival_time = st.time_input("到着予定時間")
 
     st.markdown("**【交通費情報】**")
     price_per_liter = st.text_input("燃費[L/km]",14)
     fuel_efficiency = st.text_input("ガソリン代[円]",169)
     cnt_people = 3
-
 
 # メイン表示
 if 'golfcourse_df' in st.session_state:
@@ -124,16 +123,16 @@ if 'golfcourse_df' in st.session_state:
         st.write("--------")
 
         ###関数：ルート検索（route_search）をコールし、ルート情報（概要）とルート情報（詳細）を格納する
-        routes_overview,routes_details = route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,play_date,estimated_arrival_time)
+        routes_overview,routes_details,total_time,total_distance= route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,play_date,estimated_arrival_time)
         
         ###関数：高速料金計算（highway_toll）をコールし、高速料金を計算する
         highway_toll_List = highway_toll(routes_overview,ic_list_df)
 
         ###関数：費用計算（cost_calculation）をコールし、総距離と交通量情報、高速料金から交通費、1人あたりの交通費を算出する
-        total_cost,per_cost,total_highway_cost,fuel_cost,total_time,total_distance = cost_calculation(highway_toll_List,price_per_liter, fuel_efficiency,cnt_people,routes_overview)
+        total_cost,per_cost,total_highway_cost,fuel_cost = cost_calculation(highway_toll_List,price_per_liter, fuel_efficiency,cnt_people)
 
         
-
+        st.write(highway_toll_List)
 
         #結果表示
         col1, col2 = st.columns(2)
