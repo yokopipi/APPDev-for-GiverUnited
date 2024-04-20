@@ -1,55 +1,70 @@
-#############
-#【関数名】
-#費用計算（cost_calculation）総距離と交通量情報、高速料金から交通費、1人あたりの交通費を算出する
-#【処理内容】
-#交通費の算出と割り勘計算の実施。
+import pandas as pd
+import streamlit as st
+from streamlit_folium import folium_map
+import googlemaps as gmaps
+from PIL import Image
 
-#【パラメータ】
-# ・高速料金一覧：リストのリスト
-# ・ガソリン代（1Lあたり）：数字
-# ・燃費（L/KM）：数字
-# ・人数：数字
-#【返り値】
-# ・総コスト：数字
-# ・一人あたりのコスト：数字 
-# ・高速金額：数字 
-# ・ガソリン代：数字 
-#############
-
-def cost_calculation(highway_toll_List, price_per_liter, fuel_efficiency, cnt_people):
+def route_display(routes_overview,ic_list_df,highway_toll_List,total_cost,per_cost,total_highway_cost,fuel_cost):
   """
-  費用計算（cost_calculation）
-
-  総距離と交通量情報、高速料金から交通費、1人あたりの交通費を算出する
+  ルートと費用情報をStreamlit上で表示
 
   Args:
-    highway_toll_List: 高速料金一覧（リストのリスト）
-    price_per_liter: ガソリン代（1Lあたり）
-    fuel_efficiency: 燃費（L/KM）
-    cnt_people: 人数
-
-  Returns:
+    routes_overview: ルート概要情報（リスト）
+    ic_list_df: IC情報を含むデータフレーム
+    highway_toll_List: 高速料金情報（リストのリスト）
     total_cost: 総コスト
     per_cost: 一人あたりのコスト
     total_highway_cost: 高速金額
     fuel_cost: ガソリン代
   """
 
-  # 高速料金の合計
-  total_highway_cost = sum([toll[2] for toll in highway_toll_List])
+  # 出発地・目的地情報の取得
+  start_location = routes_overview[0]['highway'][0][0]
+  end_location = routes_overview[-1]['highway'][-1][1]
 
-  # 総走行距離の計算
-  total_distance = 0
-  for i in range(len(highway_toll_List) - 1):
-    total_distance += highway_toll_List[i][2]
+  # Google Maps APIキーの取得
+  gmaps_key = st.secrets["google_maps_api_key"]
 
-  # ガソリン代計算
-  fuel_cost = total_distance * fuel_efficiency * price_per_liter
+  # Google Mapsクライアントの作成
+  gmaps_client = gmaps.Client(key=gmaps_key)
 
-  # 総コスト計算
-  total_cost = total_highway_cost + fuel_cost
+  # 出発地・目的地の緯度経度を取得
+  start_latlng = gmaps_client.geocode(start_location).location
+  end_latlng = gmaps_client.geocode(end_location).location
 
-  # 一人あたりのコスト計算
-  per_cost = total_cost / cnt_people
+  # 地図を作成
+  m = folium_map(location=start_latlng, zoom_start=10)
 
-  return total_cost, per_cost, total_highway_cost, fuel_cost
+  # 出発地・目的地のマーカーを配置
+  folium.Marker(start_latlng, popup=f"出発地: {start_location}").add_to(m)
+  folium.Marker(end_latlng, popup=f"目的地: {end_location}").add_to(m)
+
+  # ルートを表示
+  for i in range(len(routes_overview)):
+    highway = routes_overview[i]['highway']
+    for j in range(len(highway) - 1):
+      start_lat = highway[j][0][0]
+      start_lng = highway[j][0][1]
+      end_lat = highway[j][1][0]
+      end_lng = highway[j][1][1]
+      folium.PolyLine([(start_lat, start_lng), (end_lat, end_lng)], color='blue', weight=2, opacity=0.7).add_to(m)
+
+  # 地図をStreamlitに表示
+  st.write(m)
+
+  # ルート詳細
+
+  st.header("ルート詳細")
+  for i, route in enumerate(routes_overview):
+    st.write(f"{i + 1}区間目")
+    st.write(f"  距離：{route['distance']} km")
+    st.write(f"  時間：{route['time']}")
+    st.write(f"  高速料金：{route['highway'][0][0]} - {route['highway'][-1][0]} = {route['highway'][-1][2]} 円")
+
+  # 費用詳細
+
+  st.header("費用詳細")
+  st.write(f"  総コスト：{total_cost} 円")
+  st.write(f"  一人あたり：{per_cost} 円")
+  st.write(f"  高速料金：{total_highway_cost} 円")
+  st.write(f"  ガソリン代：{fuel_cost} 円")
