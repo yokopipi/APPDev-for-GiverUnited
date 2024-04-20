@@ -24,6 +24,7 @@ from datetime import datetime
 
 def route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,play_date,estimated_arrival_time):
     print(play_date)
+    print(estimated_arrival_time)
     play_date = datetime.strptime(play_date, "%Y-%m-%d")
     # 日付と時刻を結合して一つの文字列にする
     combined_datetime_str = play_date.strftime("%Y-%m-%d") + ' ' + estimated_arrival_time.strftime("%H:%M:%S") 
@@ -58,6 +59,9 @@ def route_search(starting_point,first_person_address,second_person_address,third
     html_toll = []
     ic = []
     toll_flag = []
+    waypoint_order = data["routes"][0]["waypoint_order"]
+    waypoint_order_address = [first_person_address, second_person_address, third_person_address]
+    waypoint_list = [waypoint_order_address[i] for i in waypoint_order]
 
     for leg in range(len(data["routes"][0]["legs"])):
         distance.append(data["routes"][0]["legs"][leg]["distance"]["text"])
@@ -175,7 +179,68 @@ def route_search(starting_point,first_person_address,second_person_address,third
 
     # 時間表記のリストを変換
     times_list = [convert_time(duration) for duration in durations]
-    
+    #リストの要素を逆にする
+    times_list_reversed = list(reversed(times_list))
+    # 到着時間から秒を削除する
+    arrival_time = datetime.strptime(str(estimated_arrival_time), '%H:%M:%S').strftime('%H:%M')
+    # 到着時間を時間と分に分解する
+    arrival_hours, arrival_minutes = map(int, arrival_time.split(':'))
+
+    dep_time=[]
+    carry_over = 0  # 時間の繰り上がりを追跡するための変数
+
+    for time_str in range(len(times_list_reversed)):
+        # 目標時間を時間と分に分解する
+        time_hours, time_minutes = map(int, times_list_reversed[time_str].split(':'))
+        # １回目のループ処理では到着時間から１つ前の地点からの所要時間を引く
+        if time_str == 0:
+            result_hours = arrival_hours - time_hours
+            result_minutes = arrival_minutes - time_minutes    
+
+            # 分が負の場合、時間を減らして正の分に変換する
+            if result_minutes < 0:
+                result_hours -= 1
+                result_minutes += 60
+
+            # 時間が負の場合、24時間を加えて正の時間に変換する
+            if result_hours < 0:
+                result_hours += 24
+                carry_over -= 1  # 繰り下がりを記録
+
+        else:
+            result_hours = result_hours - time_hours + carry_over
+            result_minutes = result_minutes - time_minutes    
+
+            # 分が負の場合、時間を減らして正の分に変換する
+            if result_minutes < 0:
+                result_hours -= 1
+                result_minutes += 60
+
+            # 時間が負の場合、24時間を加えて正の時間に変換する
+            if result_hours < 0:
+                result_hours += 24
+                carry_over -= 1  # 繰り下がりを記録
+
+        # 結果を文字列に整形する
+        result_str = "{:02d}:{:02d}".format(result_hours, result_minutes)
+        dep_time.append(result_str)
+        print(dep_time)
+
+    #総時間の算出
+    dep_hours, dep_minutes = map(int, dep_time[-1].split(':'))
+    total_hours = arrival_hours - dep_hours
+    total_minutes = arrival_minutes - dep_minutes
+    if total_minutes < 0:
+        total_hours -= 1
+        total_minutes += 60
+    if total_hours < 0:
+         total_hours += 24
+         
+    total_time = "{:02d}時間{:02d}分".format(total_hours, total_minutes)
+
+    #総距離の算出
+    total_distance = sum(distances_list)
+
     #経由情報（概要）
     if len(data["routes"][0]["legs"]) == 1:
         routes_overview = [
@@ -198,7 +263,8 @@ def route_search(starting_point,first_person_address,second_person_address,third
         },
 
         {
-            'time':times_list[0], 
+#            'time':times_list[0], 
+            'time':dep_time[0],
             'distance':distances_list[0],
             'highway':summary_ic_list[0]
         }
@@ -207,7 +273,8 @@ def route_search(starting_point,first_person_address,second_person_address,third
     elif len(data["routes"][0]["legs"]) == 2:
         routes_overview = [
         {
-            'time':times_list[0], 
+#            'time':times_list[0], 
+            'time':dep_time[1],
             'distance':distances_list[0],
             'highway':summary_ic_list[0]
         },
@@ -225,7 +292,8 @@ def route_search(starting_point,first_person_address,second_person_address,third
         },
 
         {
-            'time':times_list[1], 
+#            'time':times_list[1], 
+            'time':dep_time[0],
             'distance':distances_list[1],
             'highway':summary_ic_list[1]
         }
@@ -234,13 +302,15 @@ def route_search(starting_point,first_person_address,second_person_address,third
     elif len(data["routes"][0]["legs"]) == 3:
         routes_overview = [
         {
-            'time':times_list[0], 
+#            'time':times_list[0], 
+            'time':dep_time[2],
             'distance':distances_list[0],
             'highway':summary_ic_list[0]
         },
 
         {
-            'time':times_list[1], 
+#            'time':times_list[1], 
+            'time':dep_time[1],
             'distance':distances_list[1],
             'highway':summary_ic_list[1]
         },
@@ -252,7 +322,8 @@ def route_search(starting_point,first_person_address,second_person_address,third
         },
 
         {
-            'time':times_list[2], 
+#            'time':times_list[2], 
+            'time':dep_time[0],
             'distance':distances_list[2],
             'highway':summary_ic_list[2]
         }
@@ -261,31 +332,33 @@ def route_search(starting_point,first_person_address,second_person_address,third
     elif len(data["routes"][0]["legs"]) == 4:
         routes_overview = [
         {
-            'time':times_list[0], 
+#            'time':times_list[0], 
+            'time':dep_time[3],
             'distance':distances_list[0],
             'highway':summary_ic_list[0]
         },
 
         {
-            'time':times_list[1], 
+#            'time':times_list[1], 
+            'time':dep_time[2],
             'distance':distances_list[1],
             'highway':summary_ic_list[1]
         },
 
         {
-            'time':times_list[2], 
+#            'time':times_list[2], 
+            'time':dep_time[1],
             'distance':distances_list[2],
             'highway':summary_ic_list[2]
         },
 
         {
-            'time':times_list[3], 
+#            'time':times_list[3], 
+            'time':dep_time[0],
             'distance':distances_list[3],
             'highway':summary_ic_list[3]
         }
         ]
 
-    total_time = '3:00'
-    total_distance = '120'
 
-    return routes_overview,routes_details,total_time,total_distance
+    return routes_overview,routes_details,total_time,total_distance,arrival_time,waypoint_list
