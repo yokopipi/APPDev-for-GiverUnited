@@ -4,7 +4,7 @@ from golfcourse_search_ import golfcourse_search
 from route_search import route_search
 from highway_toll import highway_toll
 from cost_calculation_ import cost_calculation
-from routes_display_ita import route_display
+#from routes_display_ita import route_display
 
 import streamlit as st
 import pandas as pd
@@ -172,9 +172,14 @@ if 'golfcourse_df' in st.session_state:
 
         map = folium.Map(location=[35.5378631,139.5951104], zoom_start=10)
 
+        st.write(routes_details[0])
+        line_points = [(point["lat"], point["lng"]) for point in routes_details]
+        folium.PolyLine(line_points, color="gray", weight=2.5, opacity=0.8).add_to(map)
+
         for point in routes_details:
             if point["waypoint"] == 1:
-                folium.Marker(location=[point["lat"], point["lng"]],radius=5, color="red",fill=True, fill_color="red").add_to(map)
+                icon = folium.Icon(color="red")  # 赤色のアイコン
+                folium.Marker(location=[point["lat"], point["lng"]], icon=icon).add_to(map)
             else:
-                folium.Marker(location=[point["lat"], point["lng"]],radius=1, color="blue",fill=False, fill_color="blue").add_to(map)
+                folium.CircleMarker(location=[point["lat"], point["lng"]], radius=1, color="blue", fill=True, fill_color="blue").add_to(map)
         st_folium(map, width = 1000, height = 500)

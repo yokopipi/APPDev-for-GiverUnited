@@ -35,21 +35,22 @@ def cost_calculation(highway_toll_List, price_per_liter, fuel_efficiency, cnt_pe
     fuel_cost: ガソリン代
   """
 
-  # 高速料金の合計
+  # # 高速料金の合計
   total_highway_cost = sum([toll[2] for toll in highway_toll_List])
 
-  # 総走行距離の計算
+  # # 総走行距離の計算
   total_distance = 0
   for i in range(len(highway_toll_List) - 1):
-    total_distance += highway_toll_List[i][2]
+     total_distance += highway_toll_List[i][2]
 
-  # ガソリン代計算
-  fuel_cost = total_distance * fuel_efficiency * price_per_liter
+  # # ガソリン代計算
+  fuel_cost = int(total_distance) /int(price_per_liter) * int(fuel_efficiency) 
 
-  # 総コスト計算
+  # # 総コスト計算
   total_cost = total_highway_cost + fuel_cost
 
-  # 一人あたりのコスト計算
+  # # 一人あたりのコスト計算
   per_cost = total_cost / cnt_people
+
 
   return total_cost, per_cost, total_highway_cost, fuel_cost
