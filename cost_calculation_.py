@@ -16,7 +16,6 @@
 # ・ガソリン代：数字 
 #############
 
-def cost_calculation(highway_toll_List, total_distance,price_per_liter, fuel_efficiency, cnt_people):
   """
   費用計算（cost_calculation）
 
