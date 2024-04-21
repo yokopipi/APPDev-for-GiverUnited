@@ -16,7 +16,7 @@
 # ・ガソリン代：数字 
 #############
 
-def cost_calculation(highway_toll_List, price_per_liter, fuel_efficiency, cnt_people):
+def cost_calculation(highway_toll_List, total_distance,price_per_liter, fuel_efficiency, cnt_people):
   """
   費用計算（cost_calculation）
 
@@ -37,11 +37,6 @@ def cost_calculation(highway_toll_List, price_per_liter, fuel_efficiency, cnt_pe
 
   # # 高速料金の合計
   total_highway_cost = sum([toll[2] for toll in highway_toll_List])
-
-  # # 総走行距離の計算
-  total_distance = 0
-  for i in range(len(highway_toll_List) - 1):
-     total_distance += highway_toll_List[i][2]
 
   # # ガソリン代計算
   fuel_cost = int(total_distance) /int(fuel_efficiency) * int(price_per_liter) 
