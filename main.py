@@ -1,10 +1,10 @@
 # サブモジュールをインポートする
 from create_iclist import create_iclist
-from golfcourse_search_ import golfcourse_search
+from golfcourse_search import golfcourse_search
 from route_search import route_search
 from highway_toll import highway_toll
-from cost_calculation_ import cost_calculation
-#from routes_display_ita import route_display
+from cost_calculation import cost_calculation
+
 
 import streamlit as st
 import pandas as pd
@@ -21,34 +21,51 @@ st.set_page_config(layout="wide")
 ic_list_df = create_iclist()
 
 set_area_list = {
-    "東京都":1,
-    "埼玉県":2,
-    "神奈川県":3,
-    "千葉県":4,
-    "山梨県":5,
-    "栃木県":6,
-    "群馬県":7,
+    "東京都":13,
+    "埼玉県":11,
+    "神奈川県":14,
+    "千葉県":12,
+    "山梨県":19,
+    "栃木県":9,
+    "群馬県":10,
     "茨城県":8
 }
 
 set_starttime_list = {
-    "~5時台":1,
-    "6時台":2,
-    "7時台":3,
-    "8時台":4,
-    "9時台":5,
-    "10時台":6,
-    "11時台":7,
-    "12時台~":8
+    "指定しない":0,
+    "4時台":4,
+    "5時台":5,
+    "6時台":6,
+    "7時台":7,
+    "8時台":8,
+    "9時台":9,
+    "10時台":10,
+    "11時台":11,
+    "12時台":12,
+    "13時台":13,
+    "14時台":14,
+    "15時台以降":15
 }
+
 
 # サイドバー設定
 with st.sidebar:
     st.markdown("**【ゴルフ場検索条件】**")
-    area = st.selectbox("エリア", set_area_list.keys())
-    # 今日の日付をデフォルト値として設定
-    today = datetime.date.today()  # 今日の日付を取得
+    # エリア選択
+    area_ = st.selectbox("エリア", set_area_list.keys())
+    area = set_area_list[area_]
+
+    # プレイ日選択
+    today = datetime.date.today()  # 今日の日付をデフォルト値として設定
     play_date = str(st.date_input("プレー日", today))  # デフォルト値として今日の日付を使用
+    input_date = datetime.datetime.strptime(play_date, "%Y-%m-%d").date()
+    weekday = input_date.weekday()
+    if weekday ==5 or weekday == 6:
+        Holidayflg = 1
+    else:
+        Holidayflg = 0
+
+    # プレイ料金選択
     if 'max_fee_setting' not in st.session_state:
         st.session_state.max_fee_setting = True
     if st.session_state.max_fee_setting:
@@ -57,7 +74,11 @@ with st.sidebar:
         min_fee = st.slider("プレー料金", 0, 25000, 0, 1000)
         max_fee = None
     st.session_state.max_fee_setting = st.checkbox('最高金額を指定する', True)
-    start_times = st.selectbox("スタート時間", set_starttime_list.keys())
+
+    # スタート時間選択
+    start_times_ = st.selectbox("スタート時間", set_starttime_list.keys())
+    start_times = set_starttime_list[start_times_]
+
     if st.button("ゴルフ場検索"):
         # 検索実行
         golfcourse_df = golfcourse_search(area, play_date, min_fee, max_fee, start_times)
@@ -116,24 +137,25 @@ with tab_main:
 
         # タイトル行の常時表示
         title_row = st.session_state.golfcourse_df.iloc[0]
-        title_cols = st.columns([2, 0.5, 0.5, 0.5, 2, 1, 0.5])
+        title_cols = st.columns([2, 2, 0.5, 2, 1, 0.5])
         title_cols[0].write('**ゴルフ場名**')
         title_cols[1].write('**最低価格**')
-        title_cols[2].write('**最高価格**')
-        title_cols[3].write('**評価**')
-        title_cols[4].write('**住所**')
-        title_cols[5].write('**高速からの距離**')
+        title_cols[2].write('**評価**')
+        title_cols[3].write('**住所**')
+        title_cols[4].write('**高速からの距離**')
 
         for i, row in displayed_df.iterrows():
             index = start_index + i  # 元のデータフレームでのインデックス位置
-            cols = st.columns([2, 0.5, 0.5, 0.5, 2, 1, 0.5])
+            cols = st.columns([2, 2, 0.5, 2, 1, 0.5])
             cols[0].markdown(f"**[{row['golf_course_name']}]({row['url']})**", unsafe_allow_html=True)
-            cols[1].write(str(row['min_price']) + "円")
-            cols[2].write(str(row['max_price']) + "円")
-            cols[3].write(str(row['rating']))
-            cols[4].write(row['address'])
-            cols[5].write(row['distance_from_highway'])
-            if cols[6].button("選択", key=f"select_{index}"):  # キーにインデックスを追加
+            if Holidayflg == 1:
+                cols[1].write(row['min_price_Holiday'])
+            else:
+                cols[1].write(row['min_price_Weekday'])
+            cols[2].write(str(row['rating']))
+            cols[3].write(row['address'])
+            cols[4].write(row['distance_from_highway'])
+            if cols[5].button("選択", key=f"select_{index}"):  # キーにインデックスを追加
                 st.session_state.selected_address = row['address']
                 st.session_state.selected_golf_course_name = row['golf_course_name']
         
