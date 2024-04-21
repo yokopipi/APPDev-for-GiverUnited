@@ -97,7 +97,7 @@ with st.sidebar:
     st.markdown("**【交通費情報】**")
     price_per_liter = st.text_input("燃費[L/km]",14)
     fuel_efficiency = st.text_input("ガソリン代[円]",169)
-    cnt_people = 3
+    cnt_people = 4
 
 tab_main, tab_members = st.tabs(["メイン画面", "メンバー設定"])
 
@@ -150,7 +150,8 @@ with tab_main:
             highway_toll_List = highway_toll(routes_overview,ic_list_df)
 
             ###関数：費用計算（cost_calculation）をコールし、総距離と交通量情報、高速料金から交通費、1人あたりの交通費を算出する
-            total_cost,per_cost,total_highway_cost,fuel_cost = cost_calculation(highway_toll_List,price_per_liter, fuel_efficiency,cnt_people)
+            cnt_people = 4
+            total_cost,per_cost,total_highway_cost,fuel_cost = cost_calculation(highway_toll_List,total_distance,price_per_liter, fuel_efficiency,cnt_people)
 
             #結果表示
             col1, col2 = st.columns(2)
