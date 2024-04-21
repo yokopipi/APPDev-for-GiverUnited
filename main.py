@@ -95,8 +95,8 @@ with st.sidebar:
     estimated_arrival_time = st.time_input("到着予定時間")
 
     st.markdown("**【交通費情報】**")
-    price_per_liter = st.text_input("燃費[km/L]",14)
-    fuel_efficiency = st.text_input("ガソリン代[円]",169)
+    fuel_efficiency = st.text_input("燃費[km/L]",14)
+    price_per_liter = st.text_input("ガソリン代[円/L]",169)
     cnt_people = 4
 
 tab_main, tab_members = st.tabs(["メイン画面", "メンバー設定"])

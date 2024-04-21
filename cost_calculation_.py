@@ -44,7 +44,7 @@ def cost_calculation(highway_toll_List, price_per_liter, fuel_efficiency, cnt_pe
      total_distance += highway_toll_List[i][2]
 
   # # ガソリン代計算
-  fuel_cost = int(total_distance) /int(price_per_liter) * int(fuel_efficiency) 
+  fuel_cost = int(total_distance) /int(fuel_efficiency) * int(price_per_liter) 
 
   # # 総コスト計算
   total_cost = total_highway_cost + fuel_cost
