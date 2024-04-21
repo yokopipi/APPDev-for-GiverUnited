@@ -154,7 +154,7 @@ with tab_main:
             highway_toll_List = highway_toll(routes_overview,ic_list_df)
 
             ###関数：費用計算（cost_calculation）をコールし、総距離と交通量情報、高速料金から交通費、1人あたりの交通費を算出する
-            total_cost,per_cost,total_highway_cost,fuel_cost = cost_calculation(highway_toll_List,price_per_liter, fuel_efficiency,cnt_people)
+            total_cost,per_cost,total_highway_cost,fuel_cost = cost_calculation(highway_toll_List, total_distance,price_per_liter, fuel_efficiency,cnt_people)
 
             #結果表示
             col1, col2 = st.columns(2)
