@@ -79,8 +79,8 @@ def route_search(starting_point,first_person_address,second_person_address,third
         toll_flag.append(html_toll)
 
         #スタート地点の緯度経度情報の取得（始まり）
-        start_start_location = data["routes"][0]["legs"][0]["steps"][0]["start_location"].copy()
-        #スター地点だから経由地
+        start_start_location = data["routes"][0]["legs"][leg]["steps"][0]["start_location"].copy()
+        #スタート地点だから経由地
         waypoint = 1
         #tollか否かを判断した結果をhtml_tollに格納している。スタート地点だから0番目の要素を取得
         tollsection = html_toll[0]
@@ -92,7 +92,7 @@ def route_search(starting_point,first_person_address,second_person_address,third
         routes_details_factors.append(start_start_location)
 
         #スタート地点の緯度経度情報の取得（終わり）
-        start_end_location = data["routes"][0]["legs"][0]["steps"][0]["end_location"].copy()
+        start_end_location = data["routes"][0]["legs"][leg]["steps"][0]["end_location"].copy()
         #スター地点だから経由地
         waypoint = 0
         #tollか否かを判断した結果をhtml_tollに格納している。スタート地点だから0番目の要素を取得
@@ -116,6 +116,7 @@ def route_search(starting_point,first_person_address,second_person_address,third
         html_toll = []
 
     routes_details_factors[-1]['waypoint'] = 1
+
 
     #経由情報（詳細） ※経由地はwaypointを1にする。有料区間は'tollsection'を1にする
     routes_details = routes_details_factors
