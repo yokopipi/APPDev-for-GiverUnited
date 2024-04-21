@@ -196,22 +196,10 @@ with tab_main:
                 price_cols[0].write("1人当たり交通費:")
                 price_cols[1].write(str(int(round(per_cost, -2))))
                 price_cols[2].write("円/人")
-                # st.write("高速料金：",str(total_highway_cost) + "円") 
-                # st.write("ガソリン代:",str(int(fuel_cost)) + "円")
-                # st.write("--------")
-                # st.write("交通費計：",str(int(total_cost)) + "円")
-                # st.write("1人あたり交通費:",str(int(per_cost)) + "円/人")
 
             map = folium.Map(location=[35.5378631,139.5951104], zoom_start=10)
 
-            # line_points = [[point["lat"], point["lng"]] for point in routes_details]
             line_points = list()
-            # line_points.append([35.5378631, 139.5951104])
-            # line_points.append([35.5430545 ,139.6000187])
-            # line_points.append([35.5430545 ,139.6000187])
-            # line_points.append([35.5503471 ,139.6045279])
-            # folium.PolyLine(locations=line_points, color="gray", weight=2.5, opacity=0.8).add_to(map)
-            # st.write(line_points)
             for point in routes_details:
                 line_points.append([point["lat"], point["lng"]])
                 if point["waypoint"] == 1:
@@ -220,7 +208,6 @@ with tab_main:
                 else:
                     folium.CircleMarker(location=[point["lat"], point["lng"]], radius=1, color="blue", fill=True, fill_color="blue").add_to(map)
             folium.PolyLine(locations=line_points, color="gray", weight=2.5, opacity=0.8).add_to(map)
-            st.write(line_points)
             st_folium(map, width = 1000, height = 500)
     else:
         st.write(f"## ピックアップルート検索アプリ")
