@@ -1,16 +1,15 @@
 # サブモジュールをインポートする
 from create_iclist import create_iclist
-from golfcourse_search import golfcourse_search
+from golfcourse_search_ import golfcourse_search
 from route_search import route_search
 from highway_toll import highway_toll
-from cost_calculation import cost_calculation
-
+from cost_calculation_ import cost_calculation
+# from route_display_ import route_display
 
 import streamlit as st
 import pandas as pd
 import numpy as np
 import datetime
-import streamlit as st
 from streamlit_folium import st_folium 
 import folium
 
@@ -21,51 +20,34 @@ st.set_page_config(layout="wide")
 ic_list_df = create_iclist()
 
 set_area_list = {
-    "東京都":13,
-    "埼玉県":11,
-    "神奈川県":14,
-    "千葉県":12,
-    "山梨県":19,
-    "栃木県":9,
-    "群馬県":10,
+    "東京都":1,
+    "埼玉県":2,
+    "神奈川県":3,
+    "千葉県":4,
+    "山梨県":5,
+    "栃木県":6,
+    "群馬県":7,
     "茨城県":8
 }
 
 set_starttime_list = {
-    "指定しない":0,
-    "4時台":4,
-    "5時台":5,
-    "6時台":6,
-    "7時台":7,
-    "8時台":8,
-    "9時台":9,
-    "10時台":10,
-    "11時台":11,
-    "12時台":12,
-    "13時台":13,
-    "14時台":14,
-    "15時台以降":15
+    "~5時台":1,
+    "6時台":2,
+    "7時台":3,
+    "8時台":4,
+    "9時台":5,
+    "10時台":6,
+    "11時台":7,
+    "12時台~":8
 }
-
 
 # サイドバー設定
 with st.sidebar:
     st.markdown("**【ゴルフ場検索条件】**")
-    # エリア選択
-    area_ = st.selectbox("エリア", set_area_list.keys())
-    area = set_area_list[area_]
-
-    # プレイ日選択
-    today = datetime.date.today()  # 今日の日付をデフォルト値として設定
+    area = st.selectbox("エリア", set_area_list.keys())
+    # 今日の日付をデフォルト値として設定
+    today = datetime.date.today()  # 今日の日付を取得
     play_date = str(st.date_input("プレー日", today))  # デフォルト値として今日の日付を使用
-    input_date = datetime.datetime.strptime(play_date, "%Y-%m-%d").date()
-    weekday = input_date.weekday()
-    if weekday ==5 or weekday == 6:
-        Holidayflg = 1
-    else:
-        Holidayflg = 0
-
-    # プレイ料金選択
     if 'max_fee_setting' not in st.session_state:
         st.session_state.max_fee_setting = True
     if st.session_state.max_fee_setting:
@@ -74,11 +56,7 @@ with st.sidebar:
         min_fee = st.slider("プレー料金", 0, 25000, 0, 1000)
         max_fee = None
     st.session_state.max_fee_setting = st.checkbox('最高金額を指定する', True)
-
-    # スタート時間選択
-    start_times_ = st.selectbox("スタート時間", set_starttime_list.keys())
-    start_times = set_starttime_list[start_times_]
-
+    start_times = st.selectbox("スタート時間", set_starttime_list.keys())
     if st.button("ゴルフ場検索"):
         # 検索実行
         golfcourse_df = golfcourse_search(area, play_date, min_fee, max_fee, start_times)
@@ -89,6 +67,7 @@ with st.sidebar:
         st.text_input("ゴルフ場名",st.session_state.selected_golf_course_name)
     else:
         st.text_input("ゴルフ場名")
+
     st.markdown("**【ピックアップ情報】**")
     if 'df_members' not in st.session_state:
         columns = ["No", "名前", "住所"]
@@ -116,9 +95,9 @@ with st.sidebar:
     estimated_arrival_time = st.time_input("到着予定時間")
 
     st.markdown("**【交通費情報】**")
-    fuel_efficiency = st.text_input("燃費[km/L]",14)
-    price_per_liter = st.text_input("ガソリン代[円/L]",169)
-    cnt_people = 4
+    price_per_liter = st.text_input("燃費[L/km]",14)
+    fuel_efficiency = st.text_input("ガソリン代[円]",169)
+    cnt_people = 3
 
 tab_main, tab_members = st.tabs(["メイン画面", "メンバー設定"])
 
@@ -137,28 +116,26 @@ with tab_main:
 
         # タイトル行の常時表示
         title_row = st.session_state.golfcourse_df.iloc[0]
-        title_cols = st.columns([2, 2, 0.5, 2, 1, 0.5])
+        title_cols = st.columns([2, 0.5, 0.5, 0.5, 2, 1, 0.5])
         title_cols[0].write('**ゴルフ場名**')
         title_cols[1].write('**最低価格**')
-        title_cols[2].write('**評価**')
-        title_cols[3].write('**住所**')
-        title_cols[4].write('**高速からの距離**')
+        title_cols[2].write('**最高価格**')
+        title_cols[3].write('**評価**')
+        title_cols[4].write('**住所**')
+        title_cols[5].write('**高速からの距離**')
 
         for i, row in displayed_df.iterrows():
             index = start_index + i  # 元のデータフレームでのインデックス位置
-            cols = st.columns([2, 2, 0.5, 2, 1, 0.5])
+            cols = st.columns([2, 0.5, 0.5, 0.5, 2, 1, 0.5])
             cols[0].markdown(f"**[{row['golf_course_name']}]({row['url']})**", unsafe_allow_html=True)
-            if Holidayflg == 1:
-                cols[1].write(row['min_price_Holiday'])
-            else:
-                cols[1].write(row['min_price_Weekday'])
-            cols[2].write(str(row['rating']))
-            cols[3].write(row['address'])
-            cols[4].write(row['distance_from_highway'])
-            if cols[5].button("選択", key=f"select_{index}"):  # キーにインデックスを追加
+            cols[1].write(row['min_price'])
+            cols[2].write(row['max_price'])
+            cols[3].write(row['rating'])
+            cols[4].write(row['address'])
+            cols[5].write(row['distance_from_highway'])
+            if cols[6].button("選択", key=f"select_{index}"):  # キーにインデックスを追加
                 st.session_state.selected_address = row['address']
                 st.session_state.selected_golf_course_name = row['golf_course_name']
-        
 
         if 'selected_address' in st.session_state:
             destination = st.session_state.selected_address
@@ -167,20 +144,17 @@ with tab_main:
             st.write("--------")
 
             ###関数：ルート検索（route_search）をコールし、ルート情報（概要）とルート情報（詳細）を格納する
-            routes_overview,routes_details,total_time,total_distance,arrival_time,waypoint_list= route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,play_date,estimated_arrival_time)
-            print("ルート概要",routes_overview)
-            print("ルート詳細",routes_details)
-            print("合計時間", total_time)
-            print("合計距離", total_distance)
+            routes_overview,routes_details,total_time,total_distance= route_search(starting_point,first_person_address,second_person_address,third_person_address,destination,play_date,estimated_arrival_time)
+            
             ###関数：高速料金計算（highway_toll）をコールし、高速料金を計算する
             highway_toll_List = highway_toll(routes_overview,ic_list_df)
 
             ###関数：費用計算（cost_calculation）をコールし、総距離と交通量情報、高速料金から交通費、1人あたりの交通費を算出する
-            total_cost,per_cost,total_highway_cost,fuel_cost = cost_calculation(highway_toll_List, total_distance,price_per_liter, fuel_efficiency,cnt_people)
+            total_cost,per_cost,total_highway_cost,fuel_cost = cost_calculation(highway_toll_List,price_per_liter, fuel_efficiency,cnt_people)
 
             #結果表示
             col1, col2 = st.columns(2)
-            
+
             with col1:
                 st.markdown("**【移動情報】**")
                 title_route_cols = st.columns([3,1,1])
@@ -188,7 +162,7 @@ with tab_main:
                 title_route_cols[1].write('＜時刻＞')
                 title_route_cols[2].write('＜距離＞')
                 route_cols = st.columns([3,1,1])
-                route_cols[0].write("出発地(" + starting_point + ")")
+                route_cols[0].write("出発地")
                 route_cols[1].write(routes_overview[0]["time"])
                 route_cols[2].write("ー")
                 for i in range(len(routes_overview)-1):
@@ -205,34 +179,13 @@ with tab_main:
         
             with col2:
                 st.markdown("**【交通費】**")
-                price_cols = st.columns([2, 1, 3])
-                price_cols[0].write("高速料金:")
-                price_cols[1].write(str(total_highway_cost))
-                price_cols[2].write("円")
-                price_cols[0].write("ガソリン代:")
-                price_cols[1].write(str(int(fuel_cost)))
-                price_cols[2].write("円")
-                price_cols[0].write("交通費合計:")
-                price_cols[1].write(str(int(total_cost)))
-                price_cols[2].write("円")
-                price_cols[0].write("1人当たり交通費:")
-                price_cols[1].write(str(int(round(per_cost, -2))))
-                price_cols[2].write("円/人")
-
-            map = folium.Map(location=[35.5378631,139.5951104], zoom_start=10)
-
-            line_points = list()
-            for point in routes_details:
-                line_points.append([point["lat"], point["lng"]])
-                if point["waypoint"] == 1:
-                    icon = folium.Icon(color="red")  # 赤色のアイコン
-                    folium.Marker(location=[point["lat"], point["lng"]], icon=icon).add_to(map)
-                else:
-                    folium.CircleMarker(location=[point["lat"], point["lng"]], radius=1, color="blue", fill=True, fill_color="blue").add_to(map)
-            folium.PolyLine(locations=line_points, color="gray", weight=2.5, opacity=0.8).add_to(map)
-            st_folium(map, width = 1000, height = 500)
+                st.write("高速料金：",str(total_highway_cost)) 
+                st.write("ガソリン代:",str(fuel_cost))
+                st.write("--------")
+                st.write("交通費計：",str(total_cost))
+                st.write("1人あたり交通費:",str(per_cost))
     else:
-        st.write(f"## ピックアップルート検索アプリ")
+        st.write(f"## ○○アプリ")
         st.image("teamflag.png")
 
 with tab_members:
